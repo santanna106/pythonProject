@@ -5,43 +5,45 @@ import sqlalchemy as sal
 from .irepository import IRepository
 
 class LogRepository(IRepository):
+    __table = 'tblLog'
 
-    def __init__(self, obj) -> None:
+    def __init__(self) -> None:
         self.engine = sal.create_engine('mssql+pyodbc://Teste')
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
         self.metadata = MetaData(bind=self.engine)
-        self.table = Table(obj.TableName, self.metadata, autoload=True)
-        self.obj = obj
+        self.table = Table(self.__table, self.metadata, autoload=True)
 
-    def add(self):
+
+    def add(self,object):
         i = insert(self.table)
-        i = i.values({"Estado": self.obj.status,
-                      "Sigla": self.obj.sigla,
-                      "ErrorCode": self.obj.erroCode,
-                      "ErrorColumn": self.obj.erroColumn})
+        i = i.values({"Estado": object.status,
+                      "Sigla": object.sigla,
+                      "ErrorCode": object.errorCode,
+                      "ErrorColumn": object.errorColumn})
         self.session.execute(i)
         self.session.commit()
 
-    def delete(self):
+    def delete(self,object):
         u = delete(self.table)
-        u = u.where(self.table.c.Sigla == self.obj.sigla)
+        u = u.where(self.table.c.Id == object.Id)
         self.session.execute(u)
         self.session.commit()
 
-    def update(self):
+    def update(self,object):
         u = update(self.table)
-        u = u.values({"Estado": self.obj.status,
-                      "Sigla":self.obj.sigla,
-                      "ErrorCode":self.obj.erroCode,
-                      "ErrorColumn":self.obj.errorColumn})
-        u = u.where(self.table.c.Sigla == self.obj.sigla)
+        u = u.values({"Estado": object.status,
+                      "Sigla":object.sigla,
+                      "ErrorCode":object.errorCode,
+                      "ErrorColumn":object.errorColumn})
+        u = u.where(self.table.c.Id == object.Id)
         self.session.execute(u)
         self.session.commit()
 
 
     def all(self):
-        print("all")
+        result = self.session.query(self.table).all()
+        return result
 
-    def findById(self):
-        print('Find')
+    def findById(self,Id):
+        return  self.session.query(self.table).filter_by(Id=Id).first()

@@ -5,8 +5,9 @@ class Log(Entity):
     TableName = 'tblLog'
 
     # default constructor
-    def __init__(self,status,sigla,erroCode,errorColumn):
+    def __init__(self,status,sigla,errorCode,errorColumn,id = 0):
+        Id = id
         self.status = status
         self.sigla = sigla
-        self.erroCode = erroCode
-        self.erroColumn = errorColumn
+        self.errorCode = errorCode
+        self.errorColumn = errorColumn

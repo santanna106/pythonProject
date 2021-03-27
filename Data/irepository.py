@@ -3,21 +3,21 @@ import abc
 
 class IRepository(metaclass=abc.ABCMeta):
    @abc.abstractmethod
-   def add(self):
+   def add(self,object):
       pass
 
    @abc.abstractmethod
-   def delete(self):
+   def delete(self,object):
        pass
 
    @abc.abstractmethod
-   def update(self):
+   def update(self,object):
        pass
 
    @abc.abstractmethod
-   def all(self):
+   def all(self,object):
        pass
 
    @abc.abstractmethod
-   def findById(self):
+   def findById(self,Id):
        pass
