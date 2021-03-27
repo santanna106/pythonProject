@@ -18,7 +18,9 @@ To use the framework create the domain class and then the repository class follo
 ### Abstract class of the Domain 
 
 import abc
+
 class Entity(metaclass=abc.ABCMeta):
+
     @property
     def Id(self):
         raise NotImplementedError
@@ -27,6 +29,7 @@ class Entity(metaclass=abc.ABCMeta):
 
 
 ### Domain class
+
 from .entity import Entity
 
 class Log(Entity):
