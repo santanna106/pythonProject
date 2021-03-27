@@ -16,7 +16,7 @@ https://github.com/santanna106/pythonRepository.git
 To use the framework create the domain class and then the repository class following the example below
 
 ### Abstract class of the Domain 
-
+```
 import abc
 
 class Entity(metaclass=abc.ABCMeta):
@@ -24,12 +24,11 @@ class Entity(metaclass=abc.ABCMeta):
     @property
     def Id(self):
         raise NotImplementedError
+```
         
-
-
-
 ### Domain class
 
+```
 from .entity import Entity
 
 class Log(Entity):
@@ -42,10 +41,11 @@ class Log(Entity):
         self.sigla = sigla
         self.errorCode = errorCode
         self.errorColumn = errorColumn
-        
+```        
         
 ### Repository class   
 
+```
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import insert
@@ -97,7 +97,7 @@ class LogRepository(IRepository):
     def findById(self,Id):
         return  self.session.query(self.table).filter_by(Id=Id).first()
 
-
+```
 
 
 
