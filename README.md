@@ -47,10 +47,11 @@ import sqlalchemy as sal
 from .irepository import IRepository
 
 class LogRepository(IRepository):
-    __table = 'tblLog'
+
+    __table = 'table Name'
 
     def __init__(self) -> None:
-        self.engine = sal.create_engine('mssql+pyodbc://Teste')
+        self.engine = sal.create_engine('connection String')
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
         self.metadata = MetaData(bind=self.engine)
